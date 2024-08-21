@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Davi Cruz | Web Hacker</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier Prime', monospace;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: glitch 1s linear infinite;
+        }
+
+        @keyframes glitch {
+            2%, 64% {
+                transform: translate(2px,0) skew(0deg);
+            }
+            4%, 60% {
+                transform: translate(-2px,0) skew(0deg);
+            }
+            62% {
+                transform: translate(0,0) skew(5deg); 
+            }
+        }
+
+        h1:before,
+        h1:after {
+            content: attr(title);
+            position: absolute;
+            left: 0;
+        }
+
+        h1:before {
+            animation: glitchTop 1s linear infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+            -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+        }
+
+        @keyframes glitchTop {
+            2%, 64% {
+                transform: translate(2px,-2px);
+            }
+            4%, 60% {
+                transform: translate(-2px,2px);
+            }
+            62% {
+                transform: translate(13px,-1px) skew(-13deg); 
+            }
+        }
+
+        h1:after {
+            animation: glitchBotom 1.5s linear infinite;
+            clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+            -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitchBotom {
+            2%, 64% {
+                transform: translate(-2px,0);
+            }
+            4%, 60% {
+                transform: translate(-2px,0);
+            }
+            62% {
+                transform: translate(-22px,5px) skew(21deg); 
+            }
+        }
+
+        .typing {
+            font-size: 1.5rem;
+            width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #fff;
+            animation: typing 4s steps(40) infinite, blink .5s step-end infinite alternate;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .skills {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .skill {
+            text-align: center;
+            margin: 20px;
+            width: 120px;
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project {
+            background: #111;
+            padding: 20px;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+
+        .project:hover {
+            transform: translateY(-10px);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            background: #111;
+            border: none;
+            color: #fff;
+        }
+
+        button {
+            background: #fff;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #ddd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #111;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 title="Davi Cruz">Davi Cruz</h1>
+        <div class="typing">Web Hacker & Pentester</div>
+        <canvas class="matrix-bg" id="matrix"></canvas>
+    </header>
+
+    <main>
+        <section id="about">
+            <div class="container">
+                <h2>Sobre Mim</h2>
+                <p>Sou um web hacker apaixonado por segurança cibernética e desenvolvimento web. Com anos de experiência em penetration testing e ethical hacking, meu objetivo é tornar a internet um lugar mais seguro.</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="container">
+                <h2>Habilidades</h2>
+                <div class="skills">
+                    <div class="skill">
+                        <div class="skill-icon">&#128273;</div>
+                        <p>Penetration Testing</p>
+                    </div>
+                    <div class="skill">
+                        <div class="skill-icon">&#128421;</div>
+                        <p>Desenvolvimento Web</p>
+                    </div>
+                    <div class="skill">
+                        <div class="skill-icon">&#128274;</div>
+                        <p>Criptografia</p>
+                    </div>
+                    <div class="skill">
+                        <div class="skill-icon">&#128269;</div>
+                        <p>Análise de Vulnerabilidades</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <h2>Projetos</h2>
+                <div class="projects">
+                    <div class="project">
+                        <h3>SecureWeb</h3>
+                        <p>Ferramenta de análise automatizada de segurança web</p>
+                    </div>
+                    <div class="project">
+                        <h3>CryptoGuard</h3>
+                        <p>Sistema de criptografia de ponta a ponta para comunicações seguras</p>
+                    </div>
+                    <div class="project">
+                        <h3>VulnScanner</h3>
+                        <p>Scanner de vulnerabilidades de código aberto para aplicações web</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>Contato</h2>
+                <form class="contact-form">
+                    <input type="text" placeholder="Nome" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Mensagem" required></textarea>
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Davi Cruz. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Matrix background effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const katakana = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const nums = '0123456789';
+
+        const alphabet = katakana + latin + nums;
+
+        const fontSize = 16;
+        const columns = canvas.width/fontSize;
+
+        const rainDrops = [];
+
+        for( let x = 0; x < columns; x++ ) {
+            rainDrops[x] = 1;
+        }
+
+        const draw = () => {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < rainDrops.length; i++)
+            {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
+
+                if(rainDrops[i]*fontSize > canvas.height && Math.random() > 0.975){
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        };
+
+        setInterval(draw, 30);
+
+        // Scroll reveal effect
+        function revealOnScroll() {
+            var sections = document.querySelectorAll('section');
+            sections.forEach(function(section) {
+                var sectionTop = section.getBoundingClientRect().top;
+                var windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight * 0.75) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Call on load
+    </script>
+</body>
+</html>
